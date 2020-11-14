@@ -29,7 +29,7 @@ function App() {
   const handleTodoDelete = (todoId: string) => {
     setTodos((todos) => {
       const index = todos.findIndex((todo) => todo.todoId === todoId);
-      return index > -1 ? todos.splice(index, 1) : todos;
+      return index > -1 ? [...todos].splice(index, 1) : todos;
     });
   };
 
