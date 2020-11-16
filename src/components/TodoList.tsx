@@ -1,4 +1,6 @@
 import React from 'react';
+import { MdCheckCircle } from 'react-icons/md';
+import { css } from '@emotion/react';
 
 export interface Todo {
   todoId: string;
@@ -11,10 +13,13 @@ interface TodoProp {
   handleTodoDelete: (todoId: string) => void;
 }
 
+const iconStyles = css`
+  margin-right: 8px;
+`;
+
 const TodoList: React.FC<TodoProp> = ({ todo, handleTodoDelete }, ...props) => {
   return (
     <div
-      {...props}
       style={{
         padding: 8,
         boxShadow: '0px 2px 6px 0px rgba(0,0,0,0.07)',
@@ -23,7 +28,14 @@ const TodoList: React.FC<TodoProp> = ({ todo, handleTodoDelete }, ...props) => {
         justifyContent: 'space-between',
       }}
     >
-      <span>{todo.todoName}</span>
+      <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+        <MdCheckCircle
+          className={iconStyles.name}
+          fontSize='1em'
+          color={todo.done ? 'green' : 'black'}
+        />
+        <span>{todo.todoName}</span>
+      </div>
       <button onClick={() => handleTodoDelete(todo.todoId)}>Delete</button>
     </div>
   );

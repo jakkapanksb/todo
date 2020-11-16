@@ -1,4 +1,7 @@
-import React from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import * as React from 'react';
 import { v4 as uuid } from 'uuid';
 import './App.css';
 import TodoList, { Todo } from './components/TodoList';
@@ -10,7 +13,6 @@ function App() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const name = todoRef.current?.value;
-    console.log(name);
     if (name) {
       setTodos((todos) => {
         return [
@@ -41,11 +43,42 @@ function App() {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <input name='todoName' ref={todoRef} style={{ marginRight: 16 }} />
-        <button type='submit'>Add</button>
+        <input
+          css={{
+            marginRight: 16,
+            border: 0,
+            borderBottom: '2px #404040 solid',
+            '&:focus': {
+              outline: 'unset',
+            },
+          }}
+          name='todoName'
+          ref={todoRef}
+        />
+        <button
+          css={{
+            border: 0,
+            borderRadius: 5,
+            fontSize: '1.2em',
+            backgroundColor: 'white',
+            '&:focus': {
+              outline: 'unset',
+            },
+            '&:hover': {
+              backgroundColor: 'rgb(239, 239, 239)',
+            },
+          }}
+          type='submit'
+        >
+          Add
+        </button>
       </form>
       {todos.map((todo) => (
-        <TodoList todo={todo} handleTodoDelete={handleTodoDelete} />
+        <TodoList
+          key={todo.todoId}
+          todo={todo}
+          handleTodoDelete={handleTodoDelete}
+        />
       ))}
     </div>
   );
